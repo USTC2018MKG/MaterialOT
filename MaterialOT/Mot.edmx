@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MmsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cname" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="in_item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="in_id" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="mid" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="num" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="in_order">
+          <Key>
+            <PropertyRef Name="in_id" />
+          </Key>
+          <Property Name="in_id" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="in_time" Type="date" Nullable="false" />
+          <Property Name="employee_id" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="material">
+          <Key>
+            <PropertyRef Name="mid" />
+          </Key>
+          <Property Name="mid" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="mname" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="repository_id" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="rest" Type="int" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="price" Type="double" />
+        </EntityType>
+        <EntityType Name="out_item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="out_id" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="mid" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="num" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="out_order">
+          <Key>
+            <PropertyRef Name="out_id" />
+          </Key>
+          <Property Name="out_id" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="out_time" Type="date" Nullable="false" />
+          <Property Name="employee_id" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="emplyee_id" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="user_pwd" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="sex" Type="int" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="state" Type="int" />
+          <Property Name="age" Type="int" />
+          <Property Name="type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="MmsModelStoreContainer">
+          <EntitySet Name="category" EntityType="Self.category" Schema="mms" store:Type="Tables" />
+          <EntitySet Name="in_item" EntityType="Self.in_item" Schema="mms" store:Type="Tables" />
+          <EntitySet Name="in_order" EntityType="Self.in_order" Schema="mms" store:Type="Tables" />
+          <EntitySet Name="material" EntityType="Self.material" Schema="mms" store:Type="Tables" />
+          <EntitySet Name="out_item" EntityType="Self.out_item" Schema="mms" store:Type="Tables" />
+          <EntitySet Name="out_order" EntityType="Self.out_order" Schema="mms" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="mms" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="in_item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="in_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="num" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="in_order">
+          <Key>
+            <PropertyRef Name="in_id" />
+          </Key>
+          <Property Name="in_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="in_time" Type="DateTime" Nullable="false" />
+          <Property Name="employee_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="material">
+          <Key>
+            <PropertyRef Name="mid" />
+          </Key>
+          <Property Name="mid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="repository_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rest" Type="Int32" Nullable="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Double" />
+        </EntityType>
+        <EntityType Name="out_item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="out_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="num" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="out_order">
+          <Key>
+            <PropertyRef Name="out_id" />
+          </Key>
+          <Property Name="out_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="out_time" Type="DateTime" Nullable="false" />
+          <Property Name="employee_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emplyee_id" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_pwd" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sex" Type="Int32" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="MmsContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="category" EntityType="Self.category" />
+          <EntitySet Name="in_item" EntityType="Self.in_item" />
+          <EntitySet Name="in_order" EntityType="Self.in_order" />
+          <EntitySet Name="material" EntityType="Self.material" />
+          <EntitySet Name="out_item" EntityType="Self.out_item" />
+          <EntitySet Name="out_order" EntityType="Self.out_order" />
+          <EntitySet Name="user" EntityType="Self.user" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MmsModelStoreContainer" CdmEntityContainer="MmsContext">
+          <EntitySetMapping Name="category">
+            <EntityTypeMapping TypeName="MmsModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="cname" ColumnName="cname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="in_item">
+            <EntityTypeMapping TypeName="MmsModel.in_item">
+              <MappingFragment StoreEntitySet="in_item">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="in_id" ColumnName="in_id" />
+                <ScalarProperty Name="mid" ColumnName="mid" />
+                <ScalarProperty Name="num" ColumnName="num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="in_order">
+            <EntityTypeMapping TypeName="MmsModel.in_order">
+              <MappingFragment StoreEntitySet="in_order">
+                <ScalarProperty Name="in_id" ColumnName="in_id" />
+                <ScalarProperty Name="in_time" ColumnName="in_time" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="material">
+            <EntityTypeMapping TypeName="MmsModel.material">
+              <MappingFragment StoreEntitySet="material">
+                <ScalarProperty Name="mid" ColumnName="mid" />
+                <ScalarProperty Name="mname" ColumnName="mname" />
+                <ScalarProperty Name="repository_id" ColumnName="repository_id" />
+                <ScalarProperty Name="rest" ColumnName="rest" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="out_item">
+            <EntityTypeMapping TypeName="MmsModel.out_item">
+              <MappingFragment StoreEntitySet="out_item">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="out_id" ColumnName="out_id" />
+                <ScalarProperty Name="mid" ColumnName="mid" />
+                <ScalarProperty Name="num" ColumnName="num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="out_order">
+            <EntityTypeMapping TypeName="MmsModel.out_order">
+              <MappingFragment StoreEntitySet="out_order">
+                <ScalarProperty Name="out_id" ColumnName="out_id" />
+                <ScalarProperty Name="out_time" ColumnName="out_time" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="MmsModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="emplyee_id" ColumnName="emplyee_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_pwd" ColumnName="user_pwd" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
