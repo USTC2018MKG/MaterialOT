@@ -21,9 +21,12 @@ namespace MaterialOT
     /// 
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+        public LoginCallback loginCallback;
+
+        public LoginWindow(LoginCallback callback)
         {
             InitializeComponent();
+            this.loginCallback = callback;
         }
 
         private void login(object sender, RoutedEventArgs e)
@@ -46,8 +49,14 @@ namespace MaterialOT
                 if(userLogin != null)
                 {
                     Account.Instance.Login(userLogin);
-                    MessageBox.Show("登录成功");
+                    loginCallback.Login(userLogin);
                     Close();
+                }
+                else
+                {
+                    // 登录失败，清空密码栏
+                    pbPwd.Password = "";
+                    MessageBox.Show("员工号码或密码错，请重新登录！");
                 }
             }
         }

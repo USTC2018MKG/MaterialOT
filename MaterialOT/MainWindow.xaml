@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
 
         <Label 
-            Style="{StaticResource commenLable}"
+            Style="{StaticResource commonLable}"
             Grid.Row="0" 
             Grid.Column="0" 
             Content="物料管理系统" 
@@ -47,11 +47,11 @@
         </Grid>
         <Label 
             Name="labelTime"
-            Style="{StaticResource commenLable}"
+            Style="{StaticResource commonLable}"
             Grid.Row="2" 
             Grid.Column="0" 
             Content="时间" 
-            HorizontalContentAlignment="Right"
+            HorizontalContentAlignment="Left"
             Padding="10" 
             VerticalAlignment="Bottom" 
             Height="52" 

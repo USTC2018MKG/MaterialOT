@@ -5,12 +5,25 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <!-- Common Label style -->
-        <Style x:Key="commenLable">
+        <Style x:Key="commonLable">
             <Setter Property="Label.HorizontalContentAlignment" Value="Center"/>
             <Setter Property="Label.VerticalContentAlignment" Value="Center"/>
             <Setter Property="Label.FontFamily" Value="Microsoft YaHei Light"/>
             <Setter Property="Label.FontSize" Value="20"/>
             <Setter Property="Label.Foreground" Value="White"/>
         </Style>
+
+        <Style x:Key="commonButton">
+            <Setter Property="Button.HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Button.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Button.FontFamily" Value="Microsoft YaHei Light"/>
+            <Setter Property="Button.FontSize" Value="20"/>
+            <Setter Property="Button.Foreground" Value="White"/>
+            <Setter Property="Button.Background" Value="#FF053364"/>
+            <Setter Property="Button.Padding" Value="40,10,40,10"/>
+            <Setter Property="Button.Height" Value="52"/>
+            <Setter Property="Button.Width" Value="150"/>
+        </Style>
+        
     </Application.Resources>
 </Application>

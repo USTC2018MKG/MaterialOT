@@ -6,32 +6,31 @@
         xmlns:local="clr-namespace:MaterialOT"
         mc:Ignorable="d"
         Title="登录" Height="450" Width="800" Background="White">
-    <Grid>
+    <Grid >
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
         <Label 
+            Style="{StaticResource commonLable}"
             Content="请登录或刷卡" 
             Grid.Column="0" Grid.Row="0"
-            VerticalContentAlignment="Center"
             Grid.ColumnSpan="2"
-            HorizontalContentAlignment="Center" 
             HorizontalAlignment="Left" 
-            Margin="10,10,0,0" 
-            VerticalAlignment="Top" 
-            FontSize="20" Width="774" Height="74"/>
+            VerticalAlignment="Top" Height="52" Background="#FF053364" Margin="0,0,-0.4,0" Width="794"/>
 
-        <Label Grid.Column="0" Grid.Row="1"
-               HorizontalContentAlignment="Center"
-               VerticalContentAlignment="Center"
-               Content="刷卡" FontSize="36"/>
+        <Label 
+            Grid.Column="0" 
+            Grid.Row="1"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content="刷卡" FontSize="36" Margin="10" BorderThickness="0,0,1,0" Foreground="#FFF6F6F6" Background="#FFE75941"/>
 
         <Grid Grid.Column="1" Grid.Row="1">
 
@@ -83,13 +82,11 @@
                 Width="120" FontSize="20"/>
 
             <Button 
+                Style="{StaticResource commonButton}"
                 Content="登录" 
-                Grid.ColumnSpan="2" 
-                HorizontalAlignment="Center" 
                 Grid.Row="2" 
-                VerticalAlignment="Center" 
-                Width="75" 
-                FontSize="20" Click="login"/>
+                Grid.ColumnSpan="2" 
+                Click="login" />
 
         </Grid>
     </Grid>
