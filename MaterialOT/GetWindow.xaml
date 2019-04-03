@@ -11,11 +11,12 @@
         <CollectionViewSource 
             x:Key="materialViewSource"
             d:DesignSource="{d:DesignInstance {x:Type local:material},CreateList=True}"/>
-
+        <!--物料列表头格式-->
         <DataTemplate x:Key="materialHeaderTemplate">
             <TextBlock 
                 Padding="10" 
-                FontSize="20" 
+                FontSize="16" 
+                Width="80"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center" TextAlignment="Center">
                 <TextBlock.Text>
@@ -23,6 +24,7 @@
                 </TextBlock.Text>
             </TextBlock>
         </DataTemplate>
+
     </Window.Resources>
 
     <DockPanel>
@@ -63,7 +65,7 @@
                 </ListView>
             </DockPanel>
         </Border>
-        
+
 
         <StackPanel 
             Height="80"
@@ -73,19 +75,24 @@
             <TextBlock
                 Margin="10,0,0,0"
                 VerticalAlignment="Center"
-                Text="编号或名称搜索" 
-                FontSize="20"/>
+                Text="编号" 
+                FontSize="18"/>
 
-            <TextBox Margin="30,0,30,0" Height="48" Width="200"/>
+            <TextBox 
+                FontSize="18"
+                MaxLines="1"
+                Name="tbForSearch"
+                Margin="30,0,30,0" Height="48" Width="200"/>
 
             <Button 
                 Style="{StaticResource commonButton}"
+                FontSize="18"
                 HorizontalAlignment="Right"
-                Content="搜索"/>
+                Content="搜索" Click="SearchClick"/>
 
         </StackPanel>
 
-        <Grid DockPanel.Dock="Bottom" Height="52">
+        <Grid DockPanel.Dock="Bottom" Height="52" Visibility="Hidden">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
@@ -129,17 +136,54 @@
                 Height="40"/>
         </Grid>
 
-        <ListView 
-            
-            Name="lvMaterials"
-            DataContext="{StaticResource materialViewSource}">
-            <ListView.View>
-                <GridView ColumnHeaderTemplate="{StaticResource materialHeaderTemplate}">
-                    <GridViewColumn Header="编号" Width="Auto"  DisplayMemberBinding="{Binding mid}" />
-                    <GridViewColumn Header="名称"  Width="Auto" DisplayMemberBinding="{Binding mname}" />
-                    <GridViewColumn Header="所属仓库" Width="Auto" DisplayMemberBinding="{Binding repository_id}" />
-                    <GridViewColumn Header="可用量" Width="Auto" DisplayMemberBinding="{Binding rest}" />
-                    <GridViewColumn Header="种类" Width="Auto" DisplayMemberBinding="{Binding category}" />
+        <ListView
+           
+            Name="lvMaterials" SelectionChanged="MaterialItemClicked">
+            <ListView.View >
+                <GridView ColumnHeaderTemplate="{StaticResource materialHeaderTemplate}" >
+
+                    <GridViewColumn Header="编号" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Height="30"
+                                    Width="50"
+                                    TextAlignment="Center"
+                                    FontSize="18" HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" Text="{Binding mid}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="名称"  Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="18" TextAlignment="Center" Text="{Binding mname}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn  Header="所属仓库">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="18" Text="{Binding repository_id}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="可用量" Width="Auto" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="18" HorizontalAlignment="Center" Text="{Binding rest}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="种类" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="18" Text="{Binding category_id}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -1,6 +1,8 @@
 ﻿using AccountHelper;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -28,15 +30,28 @@ namespace MaterialOT
 
         public MmsContext context = new MmsContext();
 
-        // 窗口加载完成，自动数据库查询当前
+       
+
+        // 窗口加载完成，自动数据库查询当前可用库存。每页当前20
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            context.material.Load();
+            lvMaterials.ItemsSource = context.material.Local.ToBindingList();
+        }
 
-            System.Windows.Data.CollectionViewSource materialViewSource =
-              ((System.Windows.Data.CollectionViewSource)(this.FindResource("materialViewSource")));
-            context.category.Load();
-            materialViewSource.Source = context.category.Local.ToBindingList();
+        // 通过搜索选择物料
+        private void SearchClick(object sender, RoutedEventArgs e)
+        {
+              List<material> dataSource = context.material.Where(x => x.mid.Contains(tbForSearch.Text)).ToList();
+            // dataSource = (from m in context.material where m.mid.Contains(tbForSearch.Text) select m)
+            //                               .Take(20).ToBindingList();
+            lvMaterials.ItemsSource = dataSource;
+        }
 
+        // 物料列表中的条目被点击
+        private void MaterialItemClicked(object sender, SelectionChangedEventArgs e)
+        {
+            new ConfirmNumWindow().Show();
         }
     }
 }
