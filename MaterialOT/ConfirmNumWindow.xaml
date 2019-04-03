@@ -6,7 +6,58 @@
         xmlns:local="clr-namespace:MaterialOT"
         mc:Ignorable="d"
         Title="确认数量" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" Height="52" Margin="0,50,0,0">
+            <TextBox Margin="90,0,0,0" FontSize="18" VerticalAlignment="Center"  BorderThickness="0" Grid.Column="0" Text="名称："/>
+            <TextBox  Width="100" Name="tbName" FontSize="18" VerticalAlignment="Center" Grid.Column="1" BorderThickness="0"/>
+            <TextBox Margin="20,0,0,0" FontSize="18" VerticalAlignment="Center" BorderThickness="0" TextAlignment="Right" Grid.Column="2" Text="编号："/>
+            <TextBox  Width="100" Name="tbCode"  FontSize="18" VerticalAlignment="Center"  Grid.Column="3" BorderThickness="0"/>
+        </StackPanel>
+
+        <Grid Height="52" Margin="0,40,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button 
+                Background="#FF053364"
+                Foreground="White"
+                FontSize="18" Width="50" HorizontalAlignment="Right" VerticalAlignment="Center"  BorderThickness="0" Grid.Column="0" Content="-" Click="MinusNum" />
+            <TextBox 
+                Text="{Binding Path=Count}"
+                Padding="15,0,15,0" Name="tbNum" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" />
+            <Button 
+                Background="#FF053364"
+                Foreground="White"
+                FontSize="18" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center"  BorderThickness="0" Grid.Column="2" Content="+" Click="AddNum" />
+        </Grid>
+
+        <Grid Margin="10,150,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button
+                Padding="60,10,60,10"
+                Background="#FF053364"
+                Foreground="White"
+                FontSize="18"  
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"   
+                Grid.Column="0" 
+                Content="确认" Click="Confirm" />
+            <Button
+                Padding="60,10,60,10"
+                Background="#FF053364"
+                Foreground="White"
+                FontSize="18"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"  
+                Grid.Column="1" 
+                Content="取消" Click="Cancel" />
+        </Grid>
+    </StackPanel>
 </Window>

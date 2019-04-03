@@ -30,8 +30,6 @@ namespace MaterialOT
 
         public MmsContext context = new MmsContext();
 
-       
-
         // 窗口加载完成，自动数据库查询当前可用库存。每页当前20
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -51,7 +49,21 @@ namespace MaterialOT
         // 物料列表中的条目被点击
         private void MaterialItemClicked(object sender, SelectionChangedEventArgs e)
         {
-            new ConfirmNumWindow().Show();
+            MaterialNumberCallback callback = new MaterialNumberCallback();
+            callback.ModifyNumEvent += OnGetConfirmBack;
+            new ConfirmNumWindow(callback, lvMaterials.SelectedItem as material,1).Show();
+        }
+
+        // 确认添加物料数量后返回
+        public void OnGetConfirmBack(material m, int num)
+        {
+            MessageBox.Show(num+"");
+        }
+
+        // 修改添加物料数量后返回
+        public void OnModifiedNumBack(material m, int num)
+        {
+
         }
     }
 }
