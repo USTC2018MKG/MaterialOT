@@ -50,7 +50,9 @@ namespace MaterialOT
                 }
                 else
                 {
-
+                    GetWindow getWindow = new GetWindow();
+                    getWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                    getWindow.Show();
                 }
                 
             }
@@ -60,7 +62,9 @@ namespace MaterialOT
         public void LoginResult(user u)
         {
             Account.Instance.Login(u);
-            MessageBox.Show("登录成功");
+            GetWindow getWindow = new GetWindow();
+            getWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            getWindow.Show();
         }
 
         // 定时更新时间
@@ -71,6 +75,11 @@ namespace MaterialOT
             this.labelTime.Content += DateTime.Now.ToString("yyyy年MM月dd日");
             this.labelTime.Content += " ";
             this.labelTime.Content += DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

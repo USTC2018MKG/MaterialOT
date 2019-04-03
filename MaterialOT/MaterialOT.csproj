@@ -84,6 +84,9 @@
     <Compile Include="category.cs">
       <DependentUpon>Mot.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetWindow.xaml.cs">
+      <DependentUpon>GetWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="in_item.cs">
       <DependentUpon>Mot.tt</DependentUpon>
     </Compile>
@@ -110,6 +113,10 @@
     <Compile Include="user.cs">
       <DependentUpon>Mot.tt</DependentUpon>
     </Compile>
+    <Page Include="GetWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

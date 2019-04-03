@@ -1,0 +1,148 @@
+﻿<Window x:Class="MaterialOT.GetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaterialOT"
+        mc:Ignorable="d"
+        Title="领取" Height="700" Width="1200" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <CollectionViewSource 
+            x:Key="materialViewSource"
+            d:DesignSource="{d:DesignInstance {x:Type local:material},CreateList=True}"/>
+
+        <DataTemplate x:Key="materialHeaderTemplate">
+            <TextBlock 
+                Padding="10" 
+                FontSize="20" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center" TextAlignment="Center">
+                <TextBlock.Text>
+                    <Binding/>
+                </TextBlock.Text>
+            </TextBlock>
+        </DataTemplate>
+    </Window.Resources>
+
+    <DockPanel>
+        <Border 
+            DockPanel.Dock="Right"
+            BorderBrush="Gray"
+            BorderThickness =" 2,0,0,0">
+            <DockPanel >
+                <Label 
+                Content="已选取"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="20"
+                Height="80"
+                Background="#FF053364"
+                Foreground="White"
+                DockPanel.Dock="Top"/>
+                <Button 
+                Margin="0,6,0,6"
+                Background="#FF053364" 
+                Foreground="White" 
+                Width="100"
+                Height="40"
+                DockPanel.Dock="Bottom"
+                Content="确认领取"
+                />
+
+                <ListView 
+            Name="lvChoosed"
+            DataContext="{StaticResource materialViewSource}" Margin="0,0,0,0.2" Width="408" >
+                    <ListView.View>
+                        <GridView ColumnHeaderTemplate="{StaticResource materialHeaderTemplate}">
+                            <GridViewColumn Header="编号" Width="Auto"  DisplayMemberBinding="{Binding mid}" />
+                            <GridViewColumn Header="名称"  Width="Auto" DisplayMemberBinding="{Binding mname}" />
+                            <GridViewColumn Header="所属仓库" Width="Auto" DisplayMemberBinding="{Binding repository_id}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </DockPanel>
+        </Border>
+        
+
+        <StackPanel 
+            Height="80"
+            Orientation="Horizontal" 
+            DockPanel.Dock="Top">
+
+            <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Text="编号或名称搜索" 
+                FontSize="20"/>
+
+            <TextBox Margin="30,0,30,0" Height="48" Width="200"/>
+
+            <Button 
+                Style="{StaticResource commonButton}"
+                HorizontalAlignment="Right"
+                Content="搜索"/>
+
+        </StackPanel>
+
+        <Grid DockPanel.Dock="Bottom" Height="52">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button
+                HorizontalAlignment="Right"
+                Background="#FF053364" 
+                Foreground="White" 
+                Content="上一页" 
+                Grid.Column="0" 
+                Width="100" 
+                Height="40"/>
+
+            <TextBlock
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="当前页:" 
+                FontSize="20" 
+                Grid.Column="1"  />
+
+            <TextBlock
+                TextWrapping="Wrap"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="20,0,0,0"
+                Text="20" 
+                FontSize="20" 
+                Grid.Column="2" RenderTransformOrigin="-1.997,0.645"  />
+
+            <Button 
+                HorizontalAlignment="Left"
+                Background="#FF053364" 
+                Foreground="White" 
+                Content="下一页" 
+                Grid.Column="3" 
+                Width="100" 
+                Height="40"/>
+        </Grid>
+
+        <ListView 
+            
+            Name="lvMaterials"
+            DataContext="{StaticResource materialViewSource}">
+            <ListView.View>
+                <GridView ColumnHeaderTemplate="{StaticResource materialHeaderTemplate}">
+                    <GridViewColumn Header="编号" Width="Auto"  DisplayMemberBinding="{Binding mid}" />
+                    <GridViewColumn Header="名称"  Width="Auto" DisplayMemberBinding="{Binding mname}" />
+                    <GridViewColumn Header="所属仓库" Width="Auto" DisplayMemberBinding="{Binding repository_id}" />
+                    <GridViewColumn Header="可用量" Width="Auto" DisplayMemberBinding="{Binding rest}" />
+                    <GridViewColumn Header="种类" Width="Auto" DisplayMemberBinding="{Binding category}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </DockPanel>
+</Window>
