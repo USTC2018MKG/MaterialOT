@@ -29,28 +29,17 @@ namespace MaterialOT
 
         private MaterialNumber materialNumber;
 
-        private material materials;
-
-        public ConfirmNumWindow()
-        {
-            InitializeComponent();
-        }
-
         //第一个参数点击确认回调，第二个物料种类，第三个个数
-        public ConfirmNumWindow(MaterialNumberCallback mNum, material m, int num)
+        public ConfirmNumWindow(MaterialNumberCallback mNum, MaterialNumber materialNumber)
         {
             InitializeComponent();
             this.materialNumCallback = mNum;
-            this.materials = m;
+            this.materialNumber = materialNumber;
 
-            tbName.Text = m.mname;
-            tbCode.Text = m.mid;
-
-            materialNumber = new MaterialNumber
-            {
-                Count = num
-            };
-            tbNum.DataContext = materialNumber;
+            tbName.Text = materialNumber.m.mname;
+            tbCode.Text = materialNumber.m.mid;
+          
+            tbNum.DataContext = this.materialNumber;
         }
 
         // 数量减一
@@ -68,7 +57,7 @@ namespace MaterialOT
         // 确认，将值返回后关闭
         private void Confirm(object sender, RoutedEventArgs e)
         {
-            materialNumCallback.Modify(materials, materialNumber.Count);
+            materialNumCallback.Modify(materialNumber);
             Close();
         }
 
@@ -84,6 +73,9 @@ namespace MaterialOT
     // 用来绑定tbNum的数据model
     public class MaterialNumber:INotifyPropertyChanged
     {
+
+        public material m { set; get; }
+
         private int count;
 
         public int Count
@@ -111,14 +103,14 @@ namespace MaterialOT
     public class MaterialNumberCallback
     {
         // 委托。理解为方法指针，定义回调函数类型
-        public delegate void NumHandler(material m, int num);
+        public delegate void NumHandler(MaterialNumber materialNumber);
 
         // 用来挂载被回调的函数
         public event NumHandler ModifyNumEvent;
 
-        public void Modify(material m, int num)
+        public void Modify(MaterialNumber materialNumber)
         {
-            ModifyNumEvent(m, num);
+            ModifyNumEvent(materialNumber);
         }
     }
 }
