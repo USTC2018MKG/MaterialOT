@@ -49,7 +49,7 @@
                 Width="100"
                 Height="40"
                 DockPanel.Dock="Bottom"
-                Content="确认领取"
+                Content="确认领取" Click="ConfirmChoosed"
                 />
 
                 <ListView 

@@ -42,7 +42,7 @@ namespace MaterialOT
         // 通过搜索选择物料
         private void SearchClick(object sender, RoutedEventArgs e)
         {
-              List<material> dataSource = context.material.Where(x => x.mid.Contains(tbForSearch.Text)).ToList();
+            List<material> dataSource = context.material.Where(x => x.mid.Contains(tbForSearch.Text)).ToList();
             // dataSource = (from m in context.material where m.mid.Contains(tbForSearch.Text) select m)
             //                               .Take(20).ToBindingList();
             lvMaterials.ItemsSource = dataSource;
@@ -60,13 +60,13 @@ namespace MaterialOT
         // 确认添加物料数量后返回
         public void OnGetConfirmBack(MaterialNumber materialNumber)
         {
-            if(choosedMaterials == null)
+            if (choosedMaterials == null)
             {
                 choosedMaterials = new ObservableCollection<MaterialNumber>();
             }
 
             // 如果已经添加了，需要修改数量而不是再次添加。
-            foreach(MaterialNumber c in choosedMaterials)
+            foreach (MaterialNumber c in choosedMaterials)
             {
                 if (c.m.mid.Equals(materialNumber.m.mid))
                 {
@@ -93,15 +93,38 @@ namespace MaterialOT
                 MessageBox.Show("缺少登录信息，请重试");
                 return;
             }
-            // 1，生成一个订单  2，生成订单中间表item关联到订单上
+
             string id = System.Guid.NewGuid().ToString("N");
-            out_order order =  new out_order() { out_id = id, out_time = DateTime.Now, employee_id = Account.Instance.GetUser().user_id };
+
+            // TODO 等待嵌入式设备返回操作成功信息
+
+            foreach (MaterialNumber materialNumber in choosedMaterials)
+            {
+                // 若提交订单时，可用数量不够
+                material materialLeft = context.material.Find(materialNumber.m.mid);
+                if (materialLeft.rest < materialNumber.Count)
+                {
+                    MessageBox.Show("编号：" + materialLeft.mid + " 库存不足！");
+                    return;
+                }
+                out_item outItemNew = new out_item() { out_id = id, mid = materialNumber.m.mid, num = materialNumber.Count };
+                context.out_item.Add(outItemNew);
+
+                // 修改物料表中的可用数量
+                materialLeft.rest -= materialNumber.Count;
+                context.Entry(materialLeft).State = EntityState.Modified;
+            }
+
+            out_order order = new out_order() { out_id = id, out_time = DateTime.Now, employee_id = Account.Instance.GetUser().emplyee_id };
             context.out_order.Add(order);
 
-            foreach (MaterialNumber m in choosedMaterials)
-            {
+            context.SaveChanges();
 
-            }
+            // 刷新界面，并且提示成功
+            MessageBox.Show("取料成功!");
+            lvMaterials.ItemsSource = context.material.ToList();
+            // 清空已选择
+            choosedMaterials.Clear();
         }
     }
 }

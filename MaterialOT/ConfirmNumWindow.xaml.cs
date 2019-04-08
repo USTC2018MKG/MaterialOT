@@ -42,16 +42,32 @@ namespace MaterialOT
             tbNum.DataContext = this.materialNumber;
         }
 
-        // 数量减一
+        // 数量减一，但不能小于1
         private void MinusNum(object sender, RoutedEventArgs e)
         {
+            if(materialNumber.Count <= 1)
+            {
+                MessageBox.Show("选择数量不能为0");
+                return;
+            }
             materialNumber.Count--;
         }
 
-        // 数量加一
+        // 数量加一，但不能大于余量
         private void AddNum(object sender, RoutedEventArgs e)
         {
-            materialNumber.Count++;
+            using(MmsContext mmsContext = new MmsContext())
+            {
+                material materialLeft = mmsContext.material.Find(materialNumber.m.mid);
+                if (materialLeft.rest > materialNumber.Count)
+                {
+                    materialNumber.Count++;
+                }
+                else
+                {
+                    MessageBox.Show("选择数量不能超过余量！");
+                }
+            }
         }
 
         // 确认，将值返回后关闭
@@ -73,9 +89,10 @@ namespace MaterialOT
     // 用来绑定tbNum的数据model
     public class MaterialNumber:INotifyPropertyChanged
     {
-
+        // 物料
         public material m { set; get; }
 
+        // 物料数量
         private int count;
 
         public int Count
