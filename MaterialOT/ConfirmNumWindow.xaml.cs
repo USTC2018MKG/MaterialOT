@@ -27,6 +27,8 @@ namespace MaterialOT
     {
         private MaterialNumberCallback materialNumCallback;
 
+        MmsContext mmsContext = new MmsContext();
+
         private MaterialNumber materialNumber;
 
         //第一个参数点击确认回调，第二个物料种类，第三个个数
@@ -56,25 +58,30 @@ namespace MaterialOT
         // 数量加一，但不能大于余量
         private void AddNum(object sender, RoutedEventArgs e)
         {
-            using(MmsContext mmsContext = new MmsContext())
-            {
-                material materialLeft = mmsContext.material.Find(materialNumber.m.mid);
-                if (materialLeft.rest > materialNumber.Count)
-                {
-                    materialNumber.Count++;
-                }
-                else
-                {
-                    MessageBox.Show("选择数量不能超过余量！");
-                }
-            }
+          material materialLeft = mmsContext.material.Find(materialNumber.m.mid);
+          if (materialLeft.rest > materialNumber.Count)
+          {
+              materialNumber.Count++;
+          }
+          else
+          {
+              MessageBox.Show("选择数量不能超过余量！");
+          } 
         }
 
         // 确认，将值返回后关闭
         private void Confirm(object sender, RoutedEventArgs e)
         {
-            materialNumCallback.Modify(materialNumber);
-            Close();
+            material materialLeft = mmsContext.material.Find(materialNumber.m.mid);
+            if (materialLeft.rest > materialNumber.Count)
+            {
+                materialNumCallback.Modify(materialNumber);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("选择数量不能超过余量！");
+            }
         }
 
         // 点击取消，退出
