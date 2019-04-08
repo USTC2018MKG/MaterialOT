@@ -92,21 +92,25 @@
 
         </StackPanel>
 
-        <Grid DockPanel.Dock="Bottom" Height="52" Visibility="Hidden">
+        <Grid DockPanel.Dock="Bottom" Height="52" >
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
 
             <Button
+                Name="btnPrePage"
                 HorizontalAlignment="Right"
                 Background="#FF053364" 
                 Foreground="White" 
                 Content="上一页" 
-                Grid.Column="0" 
+                Grid.Column="0"
+                Click="BtnPrePage_Click"
                 Width="100" 
                 Height="40"/>
 
@@ -118,20 +122,39 @@
                 Grid.Column="1"  />
 
             <TextBlock
+                Name="tbCurrentPage"
                 TextWrapping="Wrap"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Margin="20,0,0,0"
-                Text="20" 
+                Text="1" 
                 FontSize="20" 
                 Grid.Column="2" RenderTransformOrigin="-1.997,0.645"  />
+            <TextBlock
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="总页数:" 
+                FontSize="20" 
+                Grid.Column="3"  />
+
+            <TextBlock
+                Name="tbTotalPage"
+                TextWrapping="Wrap"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="20,0,0,0"
+                Text="1" 
+                FontSize="20" 
+                Grid.Column="4" RenderTransformOrigin="-1.997,0.645"  />
 
             <Button 
+                Name="btnNextPage"
                 HorizontalAlignment="Left"
                 Background="#FF053364" 
                 Foreground="White" 
                 Content="下一页" 
-                Grid.Column="3" 
+                Grid.Column="5" 
+                Click="BtnNextPage_Click"
                 Width="100" 
                 Height="40"/>
         </Grid>

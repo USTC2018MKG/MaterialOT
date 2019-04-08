@@ -28,24 +28,42 @@ namespace MaterialOT
             InitializeComponent();
         }
 
+        private int pageSize = 5;
+
+        // 搜索分页下标
+        private int searchIndex = 1;
+
+        // 所有结果分页下标
+        private int allIndex = 0;
+
+        private int totalPage = 0;
+
+        private int searchTotalPage = 0;
+
         private ObservableCollection<MaterialNumber> choosedMaterials;
+
+        private List<material> materials = new List<material>();
+
+        private string searchWord ;
 
         public MmsContext context = new MmsContext();
 
         // 窗口加载完成，自动数据库查询当前可用库存。每页当前20
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            context.material.Load();
-            lvMaterials.ItemsSource = context.material.Local.ToBindingList();
+            totalPage = (context.material.ToList().Count + pageSize - 1) / pageSize;
+            lvMaterials.ItemsSource = GetMaterialList(1, pageSize, "");
+            tbTotalPage.Text = totalPage.ToString();
         }
 
         // 通过搜索选择物料
         private void SearchClick(object sender, RoutedEventArgs e)
         {
-            List<material> dataSource = context.material.Where(x => x.mid.Contains(tbForSearch.Text)).ToList();
-            // dataSource = (from m in context.material where m.mid.Contains(tbForSearch.Text) select m)
-            //                               .Take(20).ToBindingList();
-            lvMaterials.ItemsSource = dataSource;
+            searchWord = tbForSearch.Text.Trim();
+            searchTotalPage = (context.material.Where(x => x.mid.Contains(searchWord)).ToList().Count + pageSize - 1) / pageSize;
+            lvMaterials.ItemsSource = GetMaterialList(1, pageSize, searchWord);
+            tbCurrentPage.Text = "1";
+            tbTotalPage.Text = searchTotalPage.ToString();
         }
 
         // 物料列表中的条目被点击
@@ -125,6 +143,77 @@ namespace MaterialOT
             lvMaterials.ItemsSource = context.material.ToList();
             // 清空已选择
             choosedMaterials.Clear();
+        }
+
+        private void BtnPrePage_Click(object sender, RoutedEventArgs e)
+        {
+            if (searchWord != null)
+            {
+                if (searchIndex == 1)
+                {
+                    MessageBox.Show("已经是第一页");
+                    return;
+                }
+                searchIndex--;
+                lvMaterials.ItemsSource = GetMaterialList(searchIndex, pageSize, searchWord);
+                tbCurrentPage.Text = searchIndex.ToString();
+            }
+            else
+            {
+                if (allIndex == 1)
+                {
+                    MessageBox.Show("已经是第一页");
+                    return;
+                }
+                allIndex--;
+                lvMaterials.ItemsSource = GetMaterialList(allIndex, pageSize, searchWord);
+                tbCurrentPage.Text = allIndex.ToString();
+            }
+            
+        }
+
+        private void BtnNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            if(searchWord != null)
+            {
+                if (searchIndex == searchTotalPage)
+                {
+                    MessageBox.Show("已经是最后一页");
+                    return;
+                }
+                searchIndex++;
+                lvMaterials.ItemsSource = GetMaterialList(searchIndex, pageSize, searchWord);
+                tbCurrentPage.Text = searchIndex.ToString();
+            }
+            else
+            {
+                if(allIndex == totalPage)
+                {
+                    MessageBox.Show("已经是最后一页");
+                    return;
+                }
+                allIndex++;
+                lvMaterials.ItemsSource = GetMaterialList(allIndex, pageSize, "");
+                tbCurrentPage.Text = allIndex.ToString();
+            }
+        }
+
+        private List<material> GetMaterialList(int pageIndex, int pageSize, string keyword)
+        {
+            int startRow = (pageIndex - 1) * pageSize;
+            if (keyword == null || keyword.Length == 0)
+            {
+                // 没有搜索
+                var query = context.material.OrderBy(x => x.mid).Skip(startRow).Take(pageSize);
+                return query.ToList();
+            }
+            else
+            {
+                // 点击搜索按钮
+                var query = context.material.Where(x => x.mid.Contains(keyword)).
+                    OrderBy(x => x.mid).Skip(startRow).Take(pageSize);
+                return query.ToList();
+            }
         }
     }
 }
